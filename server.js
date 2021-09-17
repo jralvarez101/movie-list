@@ -10,6 +10,9 @@ app.get('/', (req, res) =>
   res.json({ msg: 'Welcome to the Movie list API...' })
 );
 
+// Init middleware to send data (POST & PUT)
+app.use(express.json({ extended: false }));
+
 // Define Routes
 app.use('/api/users', require('./routes/users'));
 app.use('/api/auth', require('./routes/auth'));
