@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const bcrypt = require('bcryptjs');
 // Validation
 const { check, validationResult } = require('express-validator');
 
@@ -25,7 +26,7 @@ router.post(
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() });
     }
-    // res.send(req.body) has name, email and password in it so yuo can destructure it.
+    // res.send(req.body) has name, email and password in it so you can destructure it.
     const { name, email, password } = req.body;
     try {
       // see if a user with that email already exists
@@ -40,7 +41,20 @@ router.post(
         email,
         password,
       });
-    } catch (error) {}
+
+      // salt and hash password
+      const salt = await bcrypt.genSalt(10);
+
+      user.password = await bcrypt.hash(password, salt);
+
+      // New user is created in the collection
+      await user.save();
+
+      res.send('User saved');
+    } catch (err) {
+      console.error(err.message);
+      res.status(500).send('Server Error');
+    }
   }
 );
 
