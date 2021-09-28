@@ -1,11 +1,22 @@
 const express = require('express');
 const router = express.Router();
 
+const auth = require('../middleware/auth');
+const { check, validationResult } = require('express-validator');
+const User = require('../models/User');
+const Movies = require('../models/Movies');
+
 // @route   GET api/movies
 // @desc    Get all users movies
 // @access  Private
-router.get('/', (req, res) => {
-  res.send('display your movie list');
+router.get('/', auth, async (req, res) => {
+  try {
+    const movies = await Movies.find({ user: req.user.id }).sort({ date: -1 });
+    res.json(movies);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server Error');
+  }
 });
 
 // @route   POST api/movies
