@@ -66,8 +66,28 @@ router.post('/', auth, async (req, res) => {
 // @route   PUT api/watched/:id
 // @desc    edit watched Movie
 // @access  Private
-router.put('/:id', (req, res) => {
-  res.send('Edit movie rating');
+router.put('/:id', auth, async (req, res) => {
+  const updates = req.body;
+
+  try {
+    // we are searching the database for a movie with matching id (req.params.id)
+    let watchedMovie = await WatchedMovie.findById(req.params.id);
+    if (!watchedMovie) {
+      res.status(404).json({ msg: 'Movie not found' });
+    }
+    // we want to make sure user owns the movie
+    if (watchedMovie.user.toString() !== req.user.id)
+      return res.status(401).json({ msg: 'Not authorized' });
+
+    // after verifying this movie belongs to user we do the actual update
+    watchedMovie = await WatchedMovie.findByIdAndUpdate(req.params.id, updates);
+
+    res.json(watchedMovie);
+  } catch (error) {
+    console.error(err.message);
+    res.status(500).send;
+    ('Server Error');
+  }
 });
 
 // @route   DELETE api/watched/:id
