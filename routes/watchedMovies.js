@@ -82,7 +82,7 @@ router.put('/:id', auth, async (req, res) => {
     // after verifying this movie belongs to user we do the actual update
     watchedMovie = await WatchedMovie.findByIdAndUpdate(req.params.id, updates);
 
-    res.json(watchedMovie);
+    res.json({ msg: 'Movie rating has been updated' });
   } catch (error) {
     console.error(err.message);
     res.status(500).send;
@@ -93,8 +93,26 @@ router.put('/:id', auth, async (req, res) => {
 // @route   DELETE api/watched/:id
 // @desc    Delete watched Movie
 // @access  Private
-router.delete('/:id', (req, res) => {
-  res.send('Delete Movie');
+router.delete('/:id', auth, async (req, res) => {
+  try {
+    // we are searching the database for a movie with matching id (req.params.id)
+    let watchedMovie = await WatchedMovie.findById(req.params.id);
+    if (!watchedMovie) {
+      res.status(404).json({ msg: 'Movie not found' });
+    }
+    // we want to make sure user owns the movie
+    if (watchedMovie.user.toString() !== req.user.id)
+      return res.status(401).json({ msg: 'Not authorized' });
+
+    // after verifying this movie belongs to user we can delete it
+    await WatchedMovie.findByIdAndRemove(req.params.id);
+
+    res.json({ msg: 'movie has been removed from watched list' });
+  } catch (error) {
+    console.error(err.message);
+    res.status(500).send;
+    ('Server Error');
+  }
 });
 
 module.exports = router;
