@@ -1,23 +1,20 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useState } from 'react';
 import styled from 'styled-components';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSearch } from '@fortawesome/free-solid-svg-icons';
 
 const SearchInputDiv = styled.div`
-  width: 100%;
+  width: 50%;
   position: relative;
   display: flex;
   align-items: center;
 `;
 
 const SearchInput = styled.input`
-  margin-top: 2em;
+  margin-top: 0.75em;
   width: 90%;
-  border: 3px solid #ff4c29;
-  border-right: none;
+  border: 3px solid #718899;
   padding: 5px;
   height: 20px;
-  border-radius: 25px 0 0 25px;
+  border-radius: 25px;
   outline: none;
   color: #9dbfaf;
   &:focus {
@@ -26,27 +23,17 @@ const SearchInput = styled.input`
   }
 `;
 
-const SearchButton = styled.button`
-  width: 40px;
-  height: 36px;
-  border: 1px solid #ff4c29;
-  background: #ff4c29;
-  text-align: center;
-  color: #fff;
-  border-radius: 0 25px 25px 0;
-  cursor: pointer;
-  font-size: 20px;
-  margin-top: 26px;
-`;
-
-function FilterSearch() {
+function FilterSearch({ filteredResults }) {
+  const handleChange = (e) => {
+    filteredResults(e.target.value);
+  };
   return (
     <Fragment>
       <SearchInputDiv>
-        <SearchInput />
-        <SearchButton>
-          <FontAwesomeIcon icon={faSearch} />
-        </SearchButton>
+        <SearchInput
+          onChange={handleChange}
+          placeholder="filter through your list ..."
+        />
       </SearchInputDiv>
     </Fragment>
   );

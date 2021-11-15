@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useState } from 'react';
 import styled from 'styled-components';
 import ListMovieCard from './ListMovieCard';
 import FilterSearch from '../layout/FilterSearch';
@@ -14,23 +14,35 @@ const ResultsGrid = styled.div`
 
 const Container = styled.div`
   padding: 20px 5px 3px 5px;
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-start;
 `;
 
 const H3 = styled.h2`
-  margin-left: 30px;
+  margin-left: 10px;
   color: #edf0f7;
 `;
 
 function FavoritesList({ favorites }) {
-  console.log(favorites);
+  const [searchTerm, setSearchTerm] = useState('');
+  const filteredResults = (inputSearch) => setSearchTerm(inputSearch);
+
+  console.log('search term: ', searchTerm);
+  console.log('movie title: ', favorites);
+  const filteredMovies = favorites.filter((movie) => {
+    const lowercaseMovieTitle = movie.title?.toLowerCase() ?? '';
+
+    return lowercaseMovieTitle.includes(searchTerm.toLowerCase());
+  });
   return (
     <Fragment>
       <Container>
-        <H3>Your List</H3>
-        <FilterSearch />
+        <H3>My List</H3>
+        <FilterSearch filteredResults={filteredResults} />
       </Container>
       <ResultsGrid>
-        {favorites.map((movie) => (
+        {filteredMovies.map((movie) => (
           <ListMovieCard key={movie.id} movie={movie} />
         ))}
       </ResultsGrid>
