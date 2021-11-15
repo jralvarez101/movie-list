@@ -5,14 +5,16 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Navbar from './components/layout/Navbar';
 import Home from './components/pages/Home';
 import About from './components/pages/About';
+import MyList from './components/pages/MyList';
 import { Provider } from 'react-redux';
 import store from './store';
+import Footer from './components/layout/Footer';
 
 const Container = styled.div`
-  max-width: 1100px;
+  max-width: 100vw;
   margin: auto;
   overflow: hidden;
-  padding: 0 2rem;
+  /* padding: 0 2rem; */
 `;
 
 const App = () => {
@@ -28,10 +30,12 @@ const App = () => {
             <Switch>
               <Route exact path="/" component={Home} />
               <Route exact path="/about" component={About} />
+              <Route exact path="/myList" component={MyList} />
             </Switch>
           </Container>
         </Fragment>
       </Router>
+      <Footer />
     </Provider>
   );
 };

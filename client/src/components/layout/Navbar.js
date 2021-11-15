@@ -76,6 +76,7 @@ function Navbar() {
       <Menu isOpen={isOpen}>
         <NavLink to="/">Home</NavLink>
         <NavLink to="/about">About</NavLink>
+        <NavLink to="/myList">My List</NavLink>
       </Menu>
     </Nav>
   );
