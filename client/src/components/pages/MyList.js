@@ -14,6 +14,7 @@ function MyList() {
   const prev = () => setPage(page - 1);
   const setPassedQueryState = (query) => {
     setPassedQuery(query);
+    setPage(1);
   };
   const addToFavorites = (movie) => {
     const newFavorite = [...favorites, movie];
