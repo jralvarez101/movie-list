@@ -7,6 +7,7 @@ import Home from './components/pages/Home';
 import About from './components/pages/About';
 import MyList from './components/pages/MyList';
 import RegisterForm from './components/auth/RegisterForm';
+import Login from './components/auth/Login';
 import { Provider } from 'react-redux';
 import store from './store';
 import Footer from './components/layout/Footer';
@@ -33,6 +34,7 @@ const App = () => {
               <Route exact path="/about" component={About} />
               <Route exact path="/myList" component={MyList} />
               <Route exact path="/register" component={RegisterForm} />
+              <Route exact path="/login" component={Login} />
             </Switch>
           </Container>
         </Fragment>

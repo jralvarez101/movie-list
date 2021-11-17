@@ -53,10 +53,12 @@ const Button = styled.input`
   border-radius: 5px;
   display: inline-block;
   font-size: 20px;
+  transition: all 0.2s ease-in-out;
   &:hover {
     cursor: pointer;
-    background: #fc8068;
     border: 1px solid #fc8068;
+    color: white;
+    transform: scale(1.02);
   }
 `;
 
@@ -77,7 +79,7 @@ function RegisterForm() {
   return (
     <Container>
       <FormWrapper>
-        <H1>Sign Up</H1>
+        <H1> Sign Up</H1>
         <form onSubmit={onSubmit}>
           <Label htmlFor="name"> Name</Label>
           <Input
