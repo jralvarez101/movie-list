@@ -1,13 +1,16 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import img from '../../../src/images/poster2.jpg';
 
 const Container = styled.div`
-  min-height: 90vh;
+  background-image: url(${img});
+  min-height: 100vh;
   position: relative;
   overflow: scroll;
 `;
 
 const FormWrapper = styled.div`
+  background-color: #082032;
   position: absolute;
   top: 50%;
   left: 50%;
@@ -15,9 +18,9 @@ const FormWrapper = styled.div`
   border-radius: 20px;
   max-width: 400px;
   min-width: 300px;
-  min-height: 80%;
+  /* min-height: 80%; */
   padding: 30px;
-  border: 1px solid #b4c8d6;
+  border: 1px solid #718899;
   box-sizing: border-box;
 `;
 

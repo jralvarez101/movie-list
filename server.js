@@ -17,7 +17,6 @@ app.use(express.json({ extended: false }));
 app.use('/api/users', require('./routes/users'));
 app.use('/api/auth', require('./routes/auth'));
 app.use('/api/movies', require('./routes/movies'));
-app.use('/api/watched', require('./routes/watchedMovies'));
 
 const PORT = process.env.PORT || 5000;
 

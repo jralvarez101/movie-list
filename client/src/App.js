@@ -16,7 +16,6 @@ const Container = styled.div`
   max-width: 100vw;
   margin: auto;
   overflow: hidden;
-  /* padding: 0 2rem; */
 `;
 
 const App = () => {
