@@ -11,6 +11,11 @@ import Login from './components/auth/Login';
 import { Provider } from 'react-redux';
 import store from './store';
 import Footer from './components/layout/Footer';
+import setAuthToken from './utils/setAuthToken';
+
+if (localStorage.token) {
+  setAuthToken(localStorage.token);
+}
 
 const Container = styled.div`
   max-width: 100vw;

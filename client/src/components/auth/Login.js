@@ -19,6 +19,7 @@ const FormWrapper = styled.div`
   padding: 30px;
   border: 1px solid #b4c8d6;
   box-sizing: border-box;
+  background-color: #082032;
 `;
 
 const H1 = styled.h1`
