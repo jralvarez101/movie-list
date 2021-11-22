@@ -30,6 +30,8 @@ function MyList() {
     } else {
       isMounted.current = true;
     }
+
+    // eslint-disable-next-line
   }, [page, passedQuery]);
 
   const searchMovieToWatch = async () => {

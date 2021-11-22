@@ -6,8 +6,6 @@ import { register, clearErrors } from '../../actions/authActions';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { ToastContainer } from 'react-toastify';
-// import toastAlert from '../../utils/toastAlert';
-// import 'react-toastify/dist/ReactToastify.css';
 
 const Container = styled.div`
   background-color: #2c394b;
@@ -71,7 +69,7 @@ const Button = styled.input`
   }
 `;
 
-function RegisterForm({ register }) {
+function RegisterForm({ register, history }) {
   const [user, setUser] = useState({
     name: '',
     email: '',
@@ -79,13 +77,18 @@ function RegisterForm({ register }) {
     password2: '',
   });
   const [alert, setAlert] = useState('');
-
+  // auth is coming from the root reducer (state.auth.error)
   const error = useSelector((state) => state.auth?.error);
+  const isAuthenticated = useSelector((state) => state.auth?.isAuthenticated);
+  console.log(isAuthenticated);
 
   const { name, email, password, password2 } = user;
 
-  // Backend error display & clear error
+  // Backend error display, clear error & redirect
   useEffect(() => {
+    if (isAuthenticated) {
+      history.push('/');
+    }
     if (error) {
       setAlert(error);
       setTimeout(() => {
@@ -93,9 +96,7 @@ function RegisterForm({ register }) {
       }, 5000);
       clearErrors();
     }
-  }, [error]);
-
-  console.log('error: ', error);
+  }, [error, isAuthenticated, history]);
 
   const onChange = (e) => setUser({ ...user, [e.target.name]: e.target.value });
 
