@@ -80,7 +80,6 @@ function RegisterForm({ register, history }) {
   // auth is coming from the root reducer (state.auth.error)
   const error = useSelector((state) => state.auth?.error);
   const isAuthenticated = useSelector((state) => state.auth?.isAuthenticated);
-  console.log(isAuthenticated);
 
   const { name, email, password, password2 } = user;
 
@@ -181,4 +180,4 @@ RegisterForm.protoTypes = {
   register: PropTypes.func.isRequired,
 };
 
-export default connect(null, { register })(RegisterForm);
+export default connect(null, { register, clearErrors })(RegisterForm);
