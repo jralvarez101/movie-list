@@ -1,8 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, Fragment } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFilm, faBars } from '@fortawesome/free-solid-svg-icons';
+import { useSelector } from 'react-redux';
+import { connect, useDispatch } from 'react-redux';
+import { logout } from '../../actions/authActions';
 
 const Nav = styled.div`
   padding: 0 1rem;
@@ -41,6 +44,14 @@ const Menu = styled.div`
   }
 `;
 
+const Span = styled.span`
+  color: #718899;
+  padding: 1rem 2rem;
+  text-align: center;
+  transition: all 0.3s ease-in;
+  font-size: 0.9rem;
+`;
+
 const NavLink = styled(Link)`
   text-decoration: none;
   color: #718899;
@@ -63,6 +74,33 @@ const Bars = styled(FontAwesomeIcon)`
 
 function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
+  const isAuthenticated = useSelector((state) => state.auth?.isAuthenticated);
+  const user = useSelector((state) => state.auth?.user);
+  const dispatch = useDispatch();
+
+  const toLogOut = () => {
+    dispatch(logout());
+  };
+
+  const authLinks = (
+    <Fragment>
+      {<Span>Hello {user && user.name},</Span>}
+      <NavLink to="/">Home</NavLink>
+      <NavLink to="/myList">My List</NavLink>
+      <NavLink onClick={toLogOut} to="#!">
+        Logout
+      </NavLink>
+    </Fragment>
+  );
+
+  const guestLinks = (
+    <Fragment>
+      <NavLink to="/">Home</NavLink>
+      <NavLink to="/about">About</NavLink>
+      <NavLink to="/login">Login</NavLink>
+      <NavLink to="/register">Register</NavLink>
+    </Fragment>
+  );
 
   return (
     <Nav>
@@ -73,15 +111,9 @@ function Navbar() {
         </H2>
       </BrandLink>
       <Bars icon={faBars} size="lg" onClick={() => setIsOpen(!isOpen)} />
-      <Menu isOpen={isOpen}>
-        <NavLink to="/">Home</NavLink>
-        <NavLink to="/about">About</NavLink>
-        <NavLink to="/myList">My List</NavLink>
-        <NavLink to="/login">Login</NavLink>
-        <NavLink to="/register">Register</NavLink>
-      </Menu>
+      <Menu isOpen={isOpen}>{isAuthenticated ? authLinks : guestLinks}</Menu>
     </Nav>
   );
 }
 
-export default Navbar;
+export default connect(null, { logout })(Navbar);

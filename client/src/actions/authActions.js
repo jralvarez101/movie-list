@@ -14,7 +14,6 @@ import toastAlert from '../utils/toastAlert';
 
 // Load User ---------------------------------------------------------
 export const loadUser = () => async (dispatch) => {
-  console.log('loaduser is being called');
   //set global header because this is a PRIVATE ROUTE we imported this section
   if (localStorage.token) {
     setAuthToken(localStorage.token);
@@ -61,7 +60,7 @@ export const register = (formData) => async (dispatch) => {
   }
 };
 
-// Login User
+// Login User----------------------------------------
 export const login = (formData) => async (dispatch) => {
   const config = {
     // set headers
@@ -89,15 +88,14 @@ export const login = (formData) => async (dispatch) => {
   }
 };
 
-// Logout
+// logout User ------------------------------------
+export const logout = () => (dispatch) => {
+  dispatch({
+    type: LOGOUT,
+  });
+};
 
-// Clear Errors
-
-// Logout
-
-// Auth error
-
-// Clear error
+// Clear error-------------------------------------
 export const clearErrors = () => (dispatch) => {
   dispatch({
     type: CLEAR_ERRORS,
