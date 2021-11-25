@@ -1,9 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import styled from 'styled-components';
-import img from '../../../src/images/poster2.jpg';
+import Alert from '../layout/Alert';
+import { register, clearErrors } from '../../actions/authActions';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { ToastContainer } from 'react-toastify';
 
 const Container = styled.div`
-  background-image: url(${img});
+  background-color: #2c394b;
   min-height: 100vh;
   position: relative;
   overflow: scroll;
@@ -18,7 +23,6 @@ const FormWrapper = styled.div`
   border-radius: 20px;
   max-width: 400px;
   min-width: 300px;
-  /* min-height: 80%; */
   padding: 30px;
   border: 1px solid #718899;
   box-sizing: border-box;
@@ -65,23 +69,65 @@ const Button = styled.input`
   }
 `;
 
-function RegisterForm() {
+function RegisterForm({ register, history }) {
   const [user, setUser] = useState({
     name: '',
     email: '',
     password: '',
     password2: '',
   });
+  const [alert, setAlert] = useState('');
+  // auth is coming from the root reducer (state.auth.error)
+  const error = useSelector((state) => state.auth?.error);
+  const isAuthenticated = useSelector((state) => state.auth?.isAuthenticated);
 
   const { name, email, password, password2 } = user;
+
+  // Backend error display, clear error & redirect
+  useEffect(() => {
+    if (isAuthenticated) {
+      history.push('/');
+    }
+    if (error) {
+      setAlert(error);
+      setTimeout(() => {
+        setAlert('');
+      }, 5000);
+      clearErrors();
+    }
+  }, [error, isAuthenticated, history]);
+
   const onChange = (e) => setUser({ ...user, [e.target.name]: e.target.value });
+
   const onSubmit = (e) => {
     e.preventDefault();
-    console.log('Registered submit for ', user);
+    if (password !== password2) {
+      setAlert('Please make sure both passwords match');
+
+      setTimeout(() => {
+        setAlert('');
+      }, 5000);
+    } else {
+      register({
+        name,
+        email,
+        password,
+      });
+
+      setUser({
+        name: '',
+        email: '',
+        password: '',
+        password2: '',
+      });
+    }
   };
+
   return (
     <Container>
+      <ToastContainer />
       <FormWrapper>
+        {alert && <Alert message={alert} />}
         <H1> Sign Up</H1>
         <form onSubmit={onSubmit}>
           <Label htmlFor="name"> Name</Label>
@@ -130,4 +176,8 @@ function RegisterForm() {
   );
 }
 
-export default RegisterForm;
+RegisterForm.protoTypes = {
+  register: PropTypes.func.isRequired,
+};
+
+export default connect(null, { register, clearErrors })(RegisterForm);

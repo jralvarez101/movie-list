@@ -71,6 +71,7 @@ function PopularList() {
   const [page, setPage] = useState(1);
   useEffect(() => {
     getMovie();
+    // eslint-disable-next-line
   }, [page]);
 
   const getMovie = async () => {

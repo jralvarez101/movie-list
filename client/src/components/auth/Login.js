@@ -1,5 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
+import { connect } from 'react-redux';
+import { login, clearErrors } from '../../actions/authActions';
 import styled from 'styled-components';
+import Alert from '../layout/Alert';
 
 const Container = styled.div`
   min-height: 90vh;
@@ -19,6 +23,7 @@ const FormWrapper = styled.div`
   padding: 30px;
   border: 1px solid #b4c8d6;
   box-sizing: border-box;
+  background-color: #082032;
 `;
 
 const H1 = styled.h1`
@@ -62,21 +67,43 @@ const Button = styled.input`
   }
 `;
 
-function Login() {
+function Login({ login, history }) {
+  const [alert, setAlert] = useState('');
   const [user, setUser] = useState({
     email: '',
     password: '',
   });
 
+  const isAuthenticated = useSelector((state) => state.auth?.isAuthenticated);
+  const error = useSelector((state) => state.auth?.error);
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      history.push('/');
+    }
+    if (error) {
+      setAlert(error);
+      setTimeout(() => {
+        setAlert('');
+      }, 5000);
+      clearErrors();
+    }
+  }, [error, isAuthenticated, history]);
+
   const { email, password } = user;
   const onChange = (e) => setUser({ ...user, [e.target.name]: e.target.value });
   const onSubmit = (e) => {
     e.preventDefault();
-    console.log('Login Submit');
+    login({
+      email,
+      password,
+    });
+    setUser('');
   };
   return (
     <Container>
       <FormWrapper>
+        {alert && <Alert message={alert} />}
         <H1>Account Login</H1>
         <form onSubmit={onSubmit}>
           <Label htmlFor="email"> Email</Label>
@@ -105,4 +132,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default connect(null, { login, clearErrors })(Login);
