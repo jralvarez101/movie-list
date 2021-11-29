@@ -1,12 +1,9 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, Fragment } from 'react';
 import { loadUser } from '../../actions/authActions';
 import { useDispatch, useSelector } from 'react-redux';
-import styled from 'styled-components';
-import PopularList from '../movies/PopularList';
 
-const H1 = styled.h1`
-  color: #b4c8d6;
-`;
+import PopularList from '../movies/PopularList';
+import HomeBanner from '../layout/HomeBanner';
 
 function Home() {
   const dispatch = useDispatch();
@@ -17,10 +14,10 @@ function Home() {
     // eslint-disable-next-line
   }, []);
   return (
-    <div>
-      <H1>Home</H1>
+    <Fragment>
+      <HomeBanner />
       <PopularList />
-    </div>
+    </Fragment>
   );
 }
 

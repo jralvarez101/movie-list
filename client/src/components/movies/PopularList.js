@@ -14,10 +14,12 @@ const Grid = styled.div`
 `;
 
 const Container = styled.div`
-  max-width: 1100px;
-  margin: auto;
   overflow: hidden;
   padding: 0 2rem;
+  background-color: #082032;
+  text-align: center;
+  border-bottom: 2px groove #b4c8d6;
+  margin-top: 30px;
 `;
 
 const H2 = styled.h2`
@@ -29,7 +31,7 @@ const ButtonWrapper = styled.div`
   justify-content: center;
   align-items: center;
   gap: 15px;
-  margin-bottom: 10rem;
+  margin-bottom: 5rem;
 `;
 
 const BtnPrev = styled.button`
@@ -66,6 +68,12 @@ const BtnNxt = styled.button`
   }
 `;
 
+const Border = styled.div`
+  background-color: #ff4e00;
+  background-image: linear-gradient(315deg, #ff4e00 0%, #ec9f05 74%);
+  height: 4px;
+`;
+
 function PopularList() {
   const [movieList, setMovieList] = useState([]);
   const [page, setPage] = useState(1);
@@ -85,7 +93,7 @@ function PopularList() {
   return (
     <Fragment>
       <Container>
-        <H2>Popular Movies</H2>
+        <H2>Featured Movies</H2>
       </Container>
       <Grid>
         {movieList.map((movie) => (
@@ -102,6 +110,7 @@ function PopularList() {
           <BtnNxt onClick={() => setPage(page + 1)}>Next</BtnNxt>
         )}
       </ButtonWrapper>
+      <Border />
     </Fragment>
   );
 }

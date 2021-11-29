@@ -13,6 +13,7 @@ const SearchContainer = styled.div`
   background-attachment: fixed;
   min-height: 40vh;
   position: relative;
+  height: 100%;
 `;
 
 const ContentWrapper = styled.div`
