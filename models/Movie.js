@@ -5,18 +5,19 @@ const MovieSchema = mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'users',
   },
-  name: {
+  title: {
     type: String,
     required: true,
   },
-  rating: {
-    type: String,
+  vote_average: {
+    type: Number,
+    required: true,
   },
   overview: {
     type: String,
     required: true,
   },
-  releaseDate: {
+  poster_path: {
     type: String,
     required: true,
   },

@@ -31,7 +31,7 @@ const ButtonWrapper = styled.div`
   justify-content: center;
   align-items: center;
   gap: 15px;
-  margin-bottom: 5rem;
+  margin-bottom: 4rem;
 `;
 
 const BtnPrev = styled.button`

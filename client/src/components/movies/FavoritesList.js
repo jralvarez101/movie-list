@@ -28,8 +28,6 @@ function FavoritesList({ favorites }) {
   const [searchTerm, setSearchTerm] = useState('');
   const filteredResults = (inputSearch) => setSearchTerm(inputSearch);
 
-  console.log('search term: ', searchTerm);
-  console.log('movie title: ', favorites);
   const filteredMovies = favorites.filter((movie) => {
     const lowercaseMovieTitle = movie.title?.toLowerCase() ?? '';
 

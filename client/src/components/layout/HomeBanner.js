@@ -10,6 +10,15 @@ const MainContainer = styled.div`
   background-position: center top;
   background-size: cover;
   position: relative;
+  @media (max-width: 600px) {
+    background-image: linear-gradient(
+        to right,
+        #09203f,
+        #537895,
+        transparent 90%
+      ),
+      url(${img});
+  }
 `;
 
 const H1 = styled.h1`
@@ -24,7 +33,7 @@ const P = styled.p`
   padding: 2rem;
   font-size: 1.5rem;
   color: #edf0f7;
-  max-width: 30%;
+  width: 40%;
 `;
 
 function HomeBanner() {
