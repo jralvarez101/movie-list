@@ -25,7 +25,6 @@ export const addMovie = (movie) => async (dispatch) => {
   } catch (err) {
     dispatch({
       type: MOVIE_ERROR,
-      payload: err.response.msg,
     });
   }
 };
@@ -34,4 +33,4 @@ export const addMovie = (movie) => async (dispatch) => {
 
 // Filter movies
 
-// Movie error
+// Remove error

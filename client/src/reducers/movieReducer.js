@@ -1,7 +1,7 @@
 import { ADD_MOVIE, MOVIE_ERROR } from '../actions/types';
 
 const initialState = {
-  movies: null,
+  movies: [],
   error: null,
 };
 

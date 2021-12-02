@@ -15,3 +15,4 @@ export const DELETE_MOVIE = 'DELETE_MOVIE';
 export const FILTER_MOVIES = 'FILTER_MOVIES';
 export const CLEAR_FILTER = 'CLEAR_FILTER';
 export const MOVIE_ERROR = 'MOVIE_ERROR';
+export const ClEAR_MOVIE_ERROR = 'CLEAR_MOVIE_ERROR';

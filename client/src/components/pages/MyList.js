@@ -17,7 +17,6 @@ function MyList() {
     setPage(1);
   };
   const addToFavorites = (movie) => {
-    console.log(movie.backdrop_path);
     const newFavorite = [...favorites, movie];
     setFavorites(newFavorite);
   };

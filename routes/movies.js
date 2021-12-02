@@ -1,8 +1,7 @@
 const express = require('express');
 const router = express.Router();
-
 const auth = require('../middleware/auth');
-const { check, validationResult } = require('express-validator');
+const { validationResult } = require('express-validator');
 const User = require('../models/User');
 const Movie = require('../models/Movie');
 
@@ -28,7 +27,7 @@ router.post('/', auth, async (req, res) => {
     return res.status(400).json({ errors: errors.array() });
   }
 
-  const { title, vote_average, overview, poster_path } = req.body;
+  const { id, title, vote_average, overview, poster_path } = req.body;
 
   try {
     // see if the movie already exists
@@ -41,6 +40,7 @@ router.post('/', auth, async (req, res) => {
 
     // If the movie is not already on the list we create a new instance of it
     movie = new Movie({
+      id,
       title,
       vote_average,
       overview,
@@ -67,7 +67,7 @@ router.delete('/:id', auth, async (req, res) => {
   try {
     let movie = await Movie.findById(req.params.id);
 
-    if (!movie) return res.status(404).json({ msg: 'Contact not found' });
+    if (!movie) return res.status(404).json({ msg: 'Movie not found' });
 
     // Make sure user owns contact
     if (movie.user.toString() !== req.user.id) {
