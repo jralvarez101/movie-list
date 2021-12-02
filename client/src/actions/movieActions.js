@@ -4,6 +4,7 @@ import {
   DELETE_MOVIE,
   FILTER_MOVIES,
   MOVIE_ERROR,
+  ClEAR_MOVIE_ERROR,
 } from './types';
 import axios from 'axios';
 
@@ -25,6 +26,7 @@ export const addMovie = (movie) => async (dispatch) => {
   } catch (err) {
     dispatch({
       type: MOVIE_ERROR,
+      payload: err.response.data.msg,
     });
   }
 };
@@ -34,3 +36,8 @@ export const addMovie = (movie) => async (dispatch) => {
 // Filter movies
 
 // Remove error
+export const clearMovieErrors = () => (dispatch) => {
+  dispatch({
+    type: ClEAR_MOVIE_ERROR,
+  });
+};

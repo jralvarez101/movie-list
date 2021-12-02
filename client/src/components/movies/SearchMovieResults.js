@@ -68,13 +68,7 @@ const BtnNxt = styled.button`
   }
 `;
 
-function SearchMovieResults({
-  movieResults,
-  prev,
-  next,
-  page,
-  // addToFavorites,
-}) {
+function SearchMovieResults({ movieResults, prev, next, page }) {
   const dispatch = useDispatch();
 
   const addToFavorites = (movie) => {
@@ -86,7 +80,6 @@ function SearchMovieResults({
       poster_path: movie.poster_path,
     };
     dispatch(addMovie(movieInfo));
-    // console.log(movieInfo);
   };
 
   return (

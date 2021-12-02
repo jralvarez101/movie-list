@@ -1,4 +1,4 @@
-import { ADD_MOVIE, MOVIE_ERROR } from '../actions/types';
+import { ADD_MOVIE, MOVIE_ERROR, ClEAR_MOVIE_ERROR } from '../actions/types';
 
 const initialState = {
   movies: [],
@@ -17,6 +17,11 @@ export default (state = initialState, action) => {
       return {
         ...state,
         error: action.payload,
+      };
+    case ClEAR_MOVIE_ERROR:
+      return {
+        ...state,
+        error: null,
       };
     default:
       return state;

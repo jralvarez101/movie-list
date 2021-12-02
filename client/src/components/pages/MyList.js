@@ -1,7 +1,12 @@
 import React, { Fragment, useState, useEffect, useRef } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import SearchBox from '../layout/SearchBox';
 import FavoritesList from '../movies/FavoritesList';
 import SearchMovieResults from '../movies/SearchMovieResults';
+import { ToastContainer } from 'react-toastify';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { clearMovieErrors } from '../../actions/movieActions';
 
 function MyList() {
   const [movieResults, setMovieResults] = useState([]);
@@ -20,6 +25,22 @@ function MyList() {
     const newFavorite = [...favorites, movie];
     setFavorites(newFavorite);
   };
+
+  // Launching and clearing error & notification
+  const error = useSelector((state) => state.movie?.error);
+
+  const dispatch = useDispatch();
+  // toast alert
+  const notify = () =>
+    toast.warn(error, {
+      position: toast.POSITION.TOP_CENTER,
+    });
+
+  if (error) {
+    console.log(error);
+    notify();
+    dispatch(clearMovieErrors());
+  }
 
   // To prevent useEffect from running on first render
   const isMounted = useRef(false);
@@ -45,6 +66,7 @@ function MyList() {
   return (
     <Fragment>
       <SearchBox setPassedQueryState={setPassedQueryState} />
+      <ToastContainer />
       <SearchMovieResults
         movieResults={movieResults}
         prev={prev}
