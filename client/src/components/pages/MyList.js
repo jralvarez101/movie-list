@@ -50,10 +50,20 @@ function MyList() {
       searchMovieToWatch();
     } else {
       isMounted.current = true;
+      defaultSearch();
+      console.log(movieResults);
     }
 
     // eslint-disable-next-line
   }, [page, passedQuery]);
+
+  const defaultSearch = async () => {
+    const response = await fetch(
+      `https://api.themoviedb.org/3/movie/upcoming?api_key=f6302df7d7a747a2d83be49b4a21de55&language=en-US&page=${page}`
+    );
+    const movies = await response.json();
+    setMovieResults(movies.results);
+  };
 
   const searchMovieToWatch = async () => {
     const response = await fetch(
