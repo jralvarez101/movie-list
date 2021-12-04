@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, connect, useDispatch } from 'react-redux';
-import { getMovies } from '../../actions/movieActions';
+import { getMovies, clearMovies } from '../../actions/movieActions';
 import { login, clearErrors } from '../../actions/authActions';
 import styled from 'styled-components';
 import Alert from '../layout/Alert';
@@ -79,6 +79,9 @@ function Login({ login, history }) {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    if (!isAuthenticated) {
+      dispatch(clearMovies());
+    }
     if (isAuthenticated) {
       history.push('/');
       dispatch(getMovies());

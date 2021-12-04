@@ -1,8 +1,8 @@
 import {
   GET_MOVIES,
+  CLEAR_MOVIES,
   ADD_MOVIE,
   DELETE_MOVIE,
-  FILTER_MOVIES,
   MOVIE_ERROR,
   ClEAR_MOVIE_ERROR,
 } from './types';
@@ -47,7 +47,12 @@ export const addMovie = (movie) => async (dispatch) => {
 
 // Delete movie
 
-// Filter movies
+// Clear movie
+export const clearMovies = () => (dispatch) => {
+  dispatch({
+    type: CLEAR_MOVIES,
+  });
+};
 
 // Remove error
 export const clearMovieErrors = () => (dispatch) => {

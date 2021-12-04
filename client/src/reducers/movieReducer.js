@@ -3,6 +3,7 @@ import {
   MOVIE_ERROR,
   ClEAR_MOVIE_ERROR,
   GET_MOVIES,
+  CLEAR_MOVIES,
 } from '../actions/types';
 
 const initialState = {
@@ -23,6 +24,12 @@ export default (state = initialState, action) => {
         ...state,
         movies: [...state.movies, action.payload],
       };
+
+    case CLEAR_MOVIES:
+      return {
+        ...state,
+        movies: [],
+      };
     case MOVIE_ERROR:
       return {
         ...state,
@@ -33,6 +40,7 @@ export default (state = initialState, action) => {
         ...state,
         error: null,
       };
+
     default:
       return state;
   }
