@@ -12,7 +12,7 @@ function MyList() {
   const [movieResults, setMovieResults] = useState([]);
   const [page, setPage] = useState(1);
   const [passedQuery, setPassedQuery] = useState('');
-  const [favorites, setFavorites] = useState([]);
+  // const [favorites, setFavorites] = useState([]);
 
   // Functions to set the state
   const next = () => setPage(page + 1);
@@ -20,10 +20,6 @@ function MyList() {
   const setPassedQueryState = (query) => {
     setPassedQuery(query);
     setPage(1);
-  };
-  const addToFavorites = (movie) => {
-    const newFavorite = [...favorites, movie];
-    setFavorites(newFavorite);
   };
 
   // Launching and clearing error & notification
@@ -51,7 +47,6 @@ function MyList() {
     } else {
       isMounted.current = true;
       defaultSearch();
-      console.log(movieResults);
     }
 
     // eslint-disable-next-line
@@ -73,6 +68,10 @@ function MyList() {
     setMovieResults(movies.results);
   };
 
+  // Displaying favorites list
+  const movies = useSelector((state) => state.movie?.movies);
+  console.log(movies);
+
   return (
     <Fragment>
       <SearchBox setPassedQueryState={setPassedQueryState} />
@@ -82,9 +81,9 @@ function MyList() {
         prev={prev}
         next={next}
         page={page}
-        addToFavorites={addToFavorites}
+        // addToFavorites={addToFavorites}
       />
-      <FavoritesList favorites={favorites} />
+      <FavoritesList />
     </Fragment>
   );
 }

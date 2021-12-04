@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
-import { connect } from 'react-redux';
+import { useSelector, connect, useDispatch } from 'react-redux';
+import { getMovies } from '../../actions/movieActions';
 import { login, clearErrors } from '../../actions/authActions';
 import styled from 'styled-components';
 import Alert from '../layout/Alert';
@@ -76,10 +76,12 @@ function Login({ login, history }) {
 
   const isAuthenticated = useSelector((state) => state.auth?.isAuthenticated);
   const error = useSelector((state) => state.auth?.error);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (isAuthenticated) {
       history.push('/');
+      dispatch(getMovies());
     }
     if (error) {
       setAlert(error);
@@ -88,6 +90,7 @@ function Login({ login, history }) {
       }, 5000);
       clearErrors();
     }
+    // eslint-disable-next-line
   }, [error, isAuthenticated, history]);
 
   const { email, password } = user;
@@ -132,4 +135,4 @@ function Login({ login, history }) {
   );
 }
 
-export default connect(null, { login, clearErrors })(Login);
+export default connect(null, { login, clearErrors, getMovies })(Login);

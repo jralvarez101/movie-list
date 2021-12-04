@@ -1,4 +1,5 @@
 import React, { Fragment, useState } from 'react';
+import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import ListMovieCard from './ListMovieCard';
 import FilterSearch from '../layout/FilterSearch';
@@ -24,11 +25,14 @@ const H3 = styled.h2`
   color: #edf0f7;
 `;
 
-function FavoritesList({ favorites }) {
+function FavoritesList() {
+  const movies = useSelector((state) => state.movie?.movies);
+
+  // filter through movies
   const [searchTerm, setSearchTerm] = useState('');
   const filteredResults = (inputSearch) => setSearchTerm(inputSearch);
 
-  const filteredMovies = favorites.filter((movie) => {
+  const filteredMovies = movies.filter((movie) => {
     const lowercaseMovieTitle = movie.title?.toLowerCase() ?? '';
 
     return lowercaseMovieTitle.includes(searchTerm.toLowerCase());

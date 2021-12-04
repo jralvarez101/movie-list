@@ -9,6 +9,20 @@ import {
 import axios from 'axios';
 
 // Get movies
+export const getMovies = () => async (dispatch) => {
+  try {
+    const res = await axios.get('api/movies');
+    dispatch({
+      type: GET_MOVIES,
+      payload: res.data,
+    });
+  } catch (err) {
+    dispatch({
+      type: MOVIE_ERROR,
+      payload: err.response.data.message,
+    });
+  }
+};
 
 // Add movie
 export const addMovie = (movie) => async (dispatch) => {

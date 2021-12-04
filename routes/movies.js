@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const auth = require('../middleware/auth');
 const { validationResult } = require('express-validator');
-const User = require('../models/User');
+const user = require('../models/User');
 const Movie = require('../models/Movie');
 
 // @route   GET api/movies
@@ -14,6 +14,7 @@ router.get('/', auth, async (req, res) => {
     res.json(movies);
   } catch (err) {
     console.error(err.message);
+    console.error('an error has ocurred');
     res.status(500).send('Server Error');
   }
 });

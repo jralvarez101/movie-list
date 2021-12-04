@@ -1,4 +1,9 @@
-import { ADD_MOVIE, MOVIE_ERROR, ClEAR_MOVIE_ERROR } from '../actions/types';
+import {
+  ADD_MOVIE,
+  MOVIE_ERROR,
+  ClEAR_MOVIE_ERROR,
+  GET_MOVIES,
+} from '../actions/types';
 
 const initialState = {
   movies: [],
@@ -8,6 +13,11 @@ const initialState = {
 /* eslint import/no-anonymous-default-export: [2, {"allowArrowFunction": true}] */
 export default (state = initialState, action) => {
   switch (action.type) {
+    case GET_MOVIES:
+      return {
+        ...state,
+        movies: action.payload,
+      };
     case ADD_MOVIE:
       return {
         ...state,
