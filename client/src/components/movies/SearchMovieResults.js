@@ -92,7 +92,7 @@ function SearchMovieResults({ movieResults, prev, next, page }) {
           <ListMovieCard
             key={movie.id}
             movie={movie}
-            addToFavorites={() => addToFavorites(movie)}
+            handleClick={() => addToFavorites(movie)}
           />
         ))}
       </ResultsGrid>

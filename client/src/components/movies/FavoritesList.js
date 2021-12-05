@@ -37,6 +37,10 @@ function FavoritesList() {
 
     return lowercaseMovieTitle.includes(searchTerm.toLowerCase());
   });
+  const handleClick = (movie) => {
+    console.log('I was clicked', movie);
+  };
+
   return (
     <Fragment>
       <Container>
@@ -45,7 +49,11 @@ function FavoritesList() {
       </Container>
       <ResultsGrid>
         {filteredMovies.map((movie) => (
-          <ListMovieCard key={movie.id} movie={movie} />
+          <ListMovieCard
+            key={movie.id}
+            movie={movie}
+            handleClick={() => handleClick(movie)}
+          />
         ))}
       </ResultsGrid>
     </Fragment>
