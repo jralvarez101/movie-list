@@ -3,10 +3,14 @@ const mongoose = require('mongoose');
 const MovieSchema = mongoose.Schema({
   user: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'users',
+    ref: 'user',
   },
   title: {
     type: String,
+    required: true,
+  },
+  id: {
+    type: Number,
     required: true,
   },
   vote_average: {
@@ -27,4 +31,4 @@ const MovieSchema = mongoose.Schema({
   },
 });
 
-module.exports = mongoose.model('movie', MovieSchema);
+module.exports = mongoose.model('movies', MovieSchema);

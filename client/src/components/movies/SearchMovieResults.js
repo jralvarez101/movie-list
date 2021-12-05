@@ -1,6 +1,8 @@
 import React, { Fragment } from 'react';
 import styled from 'styled-components';
 import ListMovieCard from './ListMovieCard';
+import { addMovie } from '../../actions/movieActions';
+import { useDispatch } from 'react-redux';
 
 const ResultsGrid = styled.div`
   display: flex;
@@ -66,13 +68,20 @@ const BtnNxt = styled.button`
   }
 `;
 
-function SearchMovieResults({
-  movieResults,
-  prev,
-  next,
-  page,
-  addToFavorites,
-}) {
+function SearchMovieResults({ movieResults, prev, next, page }) {
+  const dispatch = useDispatch();
+
+  const addToFavorites = (movie) => {
+    const movieInfo = {
+      id: movie.id,
+      title: movie.title,
+      vote_average: movie.vote_average,
+      overview: movie.overview,
+      poster_path: movie.poster_path,
+    };
+    dispatch(addMovie(movieInfo));
+  };
+
   return (
     <Fragment>
       <Container>
@@ -83,7 +92,7 @@ function SearchMovieResults({
           <ListMovieCard
             key={movie.id}
             movie={movie}
-            addToFavorites={() => addToFavorites(movie)}
+            handleClick={() => addToFavorites(movie)}
           />
         ))}
       </ResultsGrid>

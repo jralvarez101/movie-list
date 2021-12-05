@@ -1,4 +1,6 @@
 import React, { Fragment, useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { deleteMovie } from '../../actions/movieActions';
 import styled from 'styled-components';
 import ListMovieCard from './ListMovieCard';
 import FilterSearch from '../layout/FilterSearch';
@@ -24,15 +26,24 @@ const H3 = styled.h2`
   color: #edf0f7;
 `;
 
-function FavoritesList({ favorites }) {
+function FavoritesList() {
+  const movies = useSelector((state) => state.movie?.movies);
+  const dispatch = useDispatch();
+
+  // filter through movies
   const [searchTerm, setSearchTerm] = useState('');
   const filteredResults = (inputSearch) => setSearchTerm(inputSearch);
 
-  const filteredMovies = favorites.filter((movie) => {
+  const filteredMovies = movies.filter((movie) => {
     const lowercaseMovieTitle = movie.title?.toLowerCase() ?? '';
 
     return lowercaseMovieTitle.includes(searchTerm.toLowerCase());
   });
+  const handleClick = (movie) => {
+    dispatch(deleteMovie(movie._id));
+    console.log('I was clicked', movie);
+  };
+
   return (
     <Fragment>
       <Container>
@@ -41,7 +52,11 @@ function FavoritesList({ favorites }) {
       </Container>
       <ResultsGrid>
         {filteredMovies.map((movie) => (
-          <ListMovieCard key={movie.id} movie={movie} />
+          <ListMovieCard
+            key={movie.id}
+            movie={movie}
+            handleClick={() => handleClick(movie)}
+          />
         ))}
       </ResultsGrid>
     </Fragment>

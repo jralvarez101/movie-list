@@ -69,7 +69,7 @@ const Overlay = styled.div`
 
 function ListMovieCard(props) {
   const { poster_path, title, vote_average, overview } = props.movie;
-  const { addToFavorites } = props;
+  const { handleClick } = props;
   const [isShown, setIsShown] = useState(false);
 
   return (
@@ -89,7 +89,7 @@ function ListMovieCard(props) {
         <h3>Overview</h3>
         {overview}
       </Overview>
-      <Overlay isShown={isShown} onClick={addToFavorites}>
+      <Overlay isShown={isShown} onClick={handleClick}>
         <AddFavorites />
       </Overlay>
     </Card>
