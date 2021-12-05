@@ -28,12 +28,14 @@ router.post('/', auth, async (req, res) => {
     return res.status(400).json({ errors: errors.array() });
   }
 
-  const { id, title, vote_average, overview, poster_path } = req.body;
+  const { id, title, vote_average, overview, poster_path, user } = req.body;
 
   try {
     // see if the movie already exists
     let movie = await Movie.findOne({ title });
-    if (movie) {
+    let userId = await Movie.findOne({ user });
+
+    if (movie && userId) {
       return res
         .status(400)
         .json({ msg: 'This movie is already on your list' });
