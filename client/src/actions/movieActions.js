@@ -46,6 +46,20 @@ export const addMovie = (movie) => async (dispatch) => {
 };
 
 // Delete movie
+export const deleteMovie = (id) => async (dispatch) => {
+  try {
+    await axios.delete(`api/movies/${id}`);
+    dispatch({
+      type: DELETE_MOVIE,
+      payload: id,
+    });
+  } catch (err) {
+    dispatch({
+      type: MOVIE_ERROR,
+      payload: err.response.data.msg,
+    });
+  }
+};
 
 // Clear movie
 export const clearMovies = () => (dispatch) => {

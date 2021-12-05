@@ -1,5 +1,6 @@
 import React, { Fragment, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { deleteMovie } from '../../actions/movieActions';
 import styled from 'styled-components';
 import ListMovieCard from './ListMovieCard';
 import FilterSearch from '../layout/FilterSearch';
@@ -27,6 +28,7 @@ const H3 = styled.h2`
 
 function FavoritesList() {
   const movies = useSelector((state) => state.movie?.movies);
+  const dispatch = useDispatch();
 
   // filter through movies
   const [searchTerm, setSearchTerm] = useState('');
@@ -38,6 +40,7 @@ function FavoritesList() {
     return lowercaseMovieTitle.includes(searchTerm.toLowerCase());
   });
   const handleClick = (movie) => {
+    dispatch(deleteMovie(movie._id));
     console.log('I was clicked', movie);
   };
 

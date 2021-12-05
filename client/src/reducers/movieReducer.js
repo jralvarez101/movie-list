@@ -4,6 +4,7 @@ import {
   ClEAR_MOVIE_ERROR,
   GET_MOVIES,
   CLEAR_MOVIES,
+  DELETE_MOVIE,
 } from '../actions/types';
 
 const initialState = {
@@ -34,6 +35,11 @@ export default (state = initialState, action) => {
       return {
         ...state,
         error: action.payload,
+      };
+    case DELETE_MOVIE:
+      return {
+        ...state,
+        movies: state.movies.filter((movie) => movie._id !== action.payload),
       };
     case ClEAR_MOVIE_ERROR:
       return {
