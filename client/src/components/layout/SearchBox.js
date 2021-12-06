@@ -88,6 +88,12 @@ function SearchBox({ setPassedQueryState }) {
     setPassedQueryState(query);
   };
 
+  const handleKeyDown = (e) => {
+    if (e.key === 'Enter') {
+      handleSubmit(e);
+    }
+  };
+
   return (
     <SearchContainer>
       <ContentWrapper>
@@ -98,6 +104,7 @@ function SearchBox({ setPassedQueryState }) {
             type="text"
             placeholder="Enter the name of your next movie..."
             value={query}
+            onKeyDown={(e) => handleKeyDown(e)}
             onChange={(e) => setQuery(e.target.value)}
           />
           <SearchButton onClick={handleSubmit}>
