@@ -81,7 +81,6 @@ function MyList() {
         prev={prev}
         next={next}
         page={page}
-        // addToFavorites={addToFavorites}
       />
       <FavoritesList />
     </Fragment>

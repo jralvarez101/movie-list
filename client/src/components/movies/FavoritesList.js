@@ -43,7 +43,6 @@ function FavoritesList() {
   });
   const handleClick = (movie) => {
     dispatch(deleteMovie(movie._id));
-    console.log('I was clicked', movie);
   };
 
   return (

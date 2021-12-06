@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const auth = require('../middleware/auth');
 const { validationResult } = require('express-validator');
-const user = require('../models/User');
+const User = require('../models/User');
 const Movie = require('../models/Movie');
 
 // @route   GET api/movies
@@ -28,14 +28,14 @@ router.post('/', auth, async (req, res) => {
     return res.status(400).json({ errors: errors.array() });
   }
 
-  const { id, title, vote_average, overview, poster_path, user } = req.body;
+  const { id, title, vote_average, overview, poster_path } = req.body;
 
   try {
     // see if the movie already exists
-    let movie = await Movie.findOne({ title });
-    let userId = await Movie.findOne({ user });
 
-    if (movie && userId) {
+    let movie = await Movie.findOne({ id, user: req.user.id });
+
+    if (movie) {
       return res
         .status(400)
         .json({ msg: 'This movie is already on your list' });
