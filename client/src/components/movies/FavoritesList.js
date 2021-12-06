@@ -4,6 +4,7 @@ import { deleteMovie } from '../../actions/movieActions';
 import styled from 'styled-components';
 import ListMovieCard from './ListMovieCard';
 import FilterSearch from '../layout/FilterSearch';
+import EmptyList from '../layout/EmptyList';
 
 const ResultsGrid = styled.div`
   display: flex;
@@ -28,6 +29,7 @@ const H3 = styled.h2`
 
 function FavoritesList() {
   const movies = useSelector((state) => state.movie?.movies);
+  console.log(movies);
   const dispatch = useDispatch();
 
   // filter through movies
@@ -51,13 +53,17 @@ function FavoritesList() {
         <FilterSearch filteredResults={filteredResults} />
       </Container>
       <ResultsGrid>
-        {filteredMovies.map((movie) => (
-          <ListMovieCard
-            key={movie.id}
-            movie={movie}
-            handleClick={() => handleClick(movie)}
-          />
-        ))}
+        {!movies.length ? (
+          <EmptyList />
+        ) : (
+          filteredMovies.map((movie) => (
+            <ListMovieCard
+              key={movie.id}
+              movie={movie}
+              handleClick={() => handleClick(movie)}
+            />
+          ))
+        )}
       </ResultsGrid>
     </Fragment>
   );
