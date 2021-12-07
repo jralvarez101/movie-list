@@ -84,7 +84,7 @@ function PopularList() {
 
   const getMovie = async () => {
     const response = await fetch(
-      `https://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&page=${page}&api_key=f6302df7d7a747a2d83be49b4a21de55`
+      `https://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&page=${page}&api_key=${process.env.REACT_APP_MOVIE_API}`
     );
     const movies = await response.json();
     setMovieList(movies.results);

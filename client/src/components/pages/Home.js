@@ -13,6 +13,7 @@ function Home() {
     if (loading) dispatch(loadUser());
     // eslint-disable-next-line
   }, []);
+
   return (
     <Fragment>
       <ToastContainer />

@@ -52,7 +52,7 @@ function MyList() {
 
   const defaultSearch = async () => {
     const response = await fetch(
-      `https://api.themoviedb.org/3/movie/upcoming?api_key=f6302df7d7a747a2d83be49b4a21de55&language=en-US&page=${page}`
+      `https://api.themoviedb.org/3/movie/upcoming?api_key=${process.env.REACT_APP_MOVIE_API}&language=en-US&page=${page}`
     );
     const movies = await response.json();
     setMovieResults(movies.results);
@@ -60,7 +60,7 @@ function MyList() {
 
   const searchMovieToWatch = async () => {
     const response = await fetch(
-      `https://api.themoviedb.org/3/search/movie?api_key=f6302df7d7a747a2d83be49b4a21de55&language=en-US&page=${page}&include_adult=false&query=${passedQuery}`
+      `https://api.themoviedb.org/3/search/movie?api_key=${process.env.REACT_APP_MOVIE_API}&language=en-US&page=${page}&include_adult=false&query=${passedQuery}`
     );
     const movies = await response.json();
     setMovieResults(movies.results);
