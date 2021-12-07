@@ -12,7 +12,6 @@ function MyList() {
   const [movieResults, setMovieResults] = useState([]);
   const [page, setPage] = useState(1);
   const [passedQuery, setPassedQuery] = useState('');
-  // const [favorites, setFavorites] = useState([]);
 
   // Functions to set the state
   const next = () => setPage(page + 1);
@@ -33,7 +32,6 @@ function MyList() {
     });
 
   if (error) {
-    console.log(error);
     notify();
     dispatch(clearMovieErrors());
   }
@@ -67,10 +65,6 @@ function MyList() {
     const movies = await response.json();
     setMovieResults(movies.results);
   };
-
-  // Displaying favorites list
-  const movies = useSelector((state) => state.movie?.movies);
-  console.log(movies);
 
   return (
     <Fragment>

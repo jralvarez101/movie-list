@@ -1,7 +1,7 @@
 import React, { useEffect, Fragment } from 'react';
 import { loadUser } from '../../actions/authActions';
 import { useDispatch, useSelector } from 'react-redux';
-
+import { ToastContainer } from 'react-toastify';
 import PopularList from '../movies/PopularList';
 import HomeBanner from '../layout/HomeBanner';
 
@@ -15,6 +15,7 @@ function Home() {
   }, []);
   return (
     <Fragment>
+      <ToastContainer />
       <HomeBanner />
       <PopularList />
     </Fragment>

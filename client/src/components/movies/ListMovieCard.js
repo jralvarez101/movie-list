@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import AddFavorites from './AddFavorites';
+import DeleteFromList from './DeleteFromList';
 
 const Img = styled.img`
   width: 100%;
@@ -68,7 +69,8 @@ const Overlay = styled.div`
 `;
 
 function ListMovieCard(props) {
-  const { poster_path, title, vote_average, overview } = props.movie;
+  const { poster_path, title, vote_average, overview, _id, id } = props.movie;
+
   const { handleClick } = props;
   const [isShown, setIsShown] = useState(false);
 
@@ -90,7 +92,7 @@ function ListMovieCard(props) {
         {overview}
       </Overview>
       <Overlay isShown={isShown} onClick={handleClick}>
-        <AddFavorites />
+        {id && _id ? <DeleteFromList /> : <AddFavorites />}
       </Overlay>
     </Card>
   );

@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import ListMovieCard from './ListMovieCard';
 import FilterSearch from '../layout/FilterSearch';
 import EmptyList from '../layout/EmptyList';
+import { movieDeletedAlert } from '../../utils/toastAlert';
 
 const ResultsGrid = styled.div`
   display: flex;
@@ -29,7 +30,6 @@ const H3 = styled.h2`
 
 function FavoritesList() {
   const movies = useSelector((state) => state.movie?.movies);
-  console.log(movies);
   const dispatch = useDispatch();
 
   // filter through movies
@@ -43,6 +43,7 @@ function FavoritesList() {
   });
   const handleClick = (movie) => {
     dispatch(deleteMovie(movie._id));
+    movieDeletedAlert();
   };
 
   return (

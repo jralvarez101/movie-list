@@ -10,7 +10,7 @@ import {
 } from './types';
 import axios from 'axios';
 import setAuthToken from '../utils/setAuthToken';
-import toastAlert from '../utils/toastAlert';
+import { toastAlert } from '../utils/toastAlert';
 
 // Load User ---------------------------------------------------------
 export const loadUser = () => async (dispatch) => {

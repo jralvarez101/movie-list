@@ -5,7 +5,6 @@ import Alert from '../layout/Alert';
 import { register, clearErrors } from '../../actions/authActions';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { ToastContainer } from 'react-toastify';
 
 const Container = styled.div`
   background-color: #2c394b;
@@ -125,7 +124,6 @@ function RegisterForm({ register, history }) {
 
   return (
     <Container>
-      <ToastContainer />
       <FormWrapper>
         {alert && <Alert message={alert} />}
         <H1> Sign Up</H1>
