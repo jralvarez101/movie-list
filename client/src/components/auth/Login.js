@@ -92,6 +92,10 @@ function Login({ login, history }) {
         setAlert('');
       }, 5000);
       clearErrors();
+      setUser({
+        email: '',
+        password: '',
+      });
     }
     // eslint-disable-next-line
   }, [error, isAuthenticated, history]);
@@ -104,7 +108,6 @@ function Login({ login, history }) {
       email,
       password,
     });
-    setUser('');
   };
   return (
     <Container>
